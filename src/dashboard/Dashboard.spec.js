@@ -22,4 +22,9 @@ test("Gate won't open when locked", () => {
   expect(openStatus.textContent).toBe("Closed")
 
   // Act
+  fireEvent.click(openCloseButton)
+
+  // Assert
+  expect(lockStatus.textContent).toBe("Locked")
+  expect(openStatus.textContent).toBe("Closed")
 })
