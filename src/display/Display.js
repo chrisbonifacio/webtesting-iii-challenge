@@ -1,6 +1,12 @@
 import React from "react"
+import { useSelector } from "react-redux"
 
-const Display = ({ closed, locked }) => {
+const Display = () => {
+  const { locked, closed } = useSelector(state => ({
+    locked: state.locked,
+    closed: state.closed
+  }))
+
   const closedClass = `led ${closed ? "red-led" : "green-led"}`
   const lockedClass = `led ${locked ? "red-led" : "green-led"}`
 
