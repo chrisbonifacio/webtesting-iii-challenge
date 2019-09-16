@@ -29,3 +29,25 @@ test("Open/Close button toggles the closed state", () => {
   expect(openCloseButton.textContent).toBe("Open Gate")
   expect(lockButton.getAttribute("disabled")).toBeNull()
 })
+
+test("Lock button toggles the locked state", () => {
+  // Arrange
+
+  // main component
+  const { getByText, getByTestId } = render(<Dashboard />)
+
+  // buttons
+  const openCloseButton = getByTestId("open-close-button")
+  const lockButton = getByTestId("lock-button")
+
+  // Assert
+  expect(openCloseButton.textContent).toBe("Close Gate")
+  expect(lockButton.getAttribute("disabled")).toBeDefined()
+
+  // Act
+  fireEvent.click(openCloseButton)
+
+  // Assert
+  expect(openCloseButton.textContent).toBe("Open Gate")
+  expect(lockButton.getAttribute("disabled")).toBeNull()
+})
