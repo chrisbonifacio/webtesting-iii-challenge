@@ -1,8 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react"
+import ReactDOM from "react-dom"
+import { createStore } from "redux"
+import { Provider } from "react-redux"
+import { composeWithDevTools } from "redux-devtools-extension"
 
-import './index.css';
+import "./index.css"
 
-import Dashboard from './dashboard/Dashboard';
+import { rootReducer } from "./store/reducers"
 
-ReactDOM.render(<Dashboard />, document.getElementById('root'));
+import Dashboard from "./dashboard/Dashboard"
+
+const store = createStore(rootReducer, composeWithDevTools())
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Dashboard />
+  </Provider>,
+  document.getElementById("root")
+)
