@@ -33,7 +33,7 @@ test("Gate renders with default props of unlocked and open", () => {
 test("Display updates correctly when lock and closed are toggled",  () => {
   // Arrange
   const { getByText, queryByTestId, getByTestId, store } = renderWithRedux(<Dashboard />, {initialState: _initialState})
-  let { locked, closed } = store.getState()
+  var { locked, closed } = store.getState()
 
   const display = queryByTestId("display")
   const openCloseButton = getByTestId("open-close-button")
@@ -43,8 +43,7 @@ test("Display updates correctly when lock and closed are toggled",  () => {
 
   // Act
   store.dispatch(toggleClosed())
-  closed = store.getState().closed
-  locked = store.getState().locked
+  var { closed, locked } = store.getState()
   
   // Assert
   expect(Array.from(display.classList)).toEqual(["display", "panel"])
@@ -56,8 +55,7 @@ test("Display updates correctly when lock and closed are toggled",  () => {
   // Act
   store.dispatch(toggleLocked())
 
-  closed = store.getState().closed
-  locked = store.getState().locked
+  var { closed, locked } = store.getState()
   
   // Assert
   expect(Array.from(lockStatus.classList)).toEqual(["led", "red-led"])
