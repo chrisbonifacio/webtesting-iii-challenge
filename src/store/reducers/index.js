@@ -1,6 +1,6 @@
 import { TOGGLE_LOCKED, TOGGLE_CLOSED } from "../actions"
 
-const initialState = {
+export const initialState = {
   locked: false,
   closed: false
 }
