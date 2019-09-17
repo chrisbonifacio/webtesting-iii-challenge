@@ -30,7 +30,7 @@ test("Gate renders with default props of unlocked and open", () => {
   expect(gate).toMatchSnapshot()
 })
 
-test("Display updates correctly when lock is toggled",  () => {
+test("Display updates correctly when lock and closed are toggled",  () => {
   // Arrange
   const { getByText, queryByTestId, getByTestId, store } = renderWithRedux(<Dashboard />, {initialState: _initialState})
   let { locked, closed } = store.getState()
@@ -44,12 +44,23 @@ test("Display updates correctly when lock is toggled",  () => {
   // Act
   store.dispatch(toggleClosed())
   closed = store.getState().closed
+  locked = store.getState().locked
   
-
   // Assert
   expect(Array.from(display.classList)).toEqual(["display", "panel"])
   expect(Array.from(openStatus.classList)).toEqual(["led", "red-led"])
   expect(openStatus.textContent).toBe("Closed")
   expect(openCloseButton.textContent).toBe("Open Gate")
   expect(closed).toBe(true)
+  
+  // Act
+  store.dispatch(toggleLocked())
+
+  closed = store.getState().closed
+  locked = store.getState().locked
+  
+  // Assert
+  expect(Array.from(lockStatus.classList)).toEqual(["led", "red-led"])
+  expect(closed).toBe(true)
+  expect(locked).toBe(true)
 })
