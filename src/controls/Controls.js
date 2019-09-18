@@ -1,18 +1,38 @@
-import React from 'react';
+import React from "react"
+import { useSelector, useDispatch } from "react-redux"
+
+import { toggleLocked, toggleClosed } from "../store/actions"
 
 const Controls = props => {
-  const { locked, closed, toggleLocked, toggleClosed } = props;
+  const { locked, closed } = useSelector(state => ({
+    locked: state.locked,
+    closed: state.closed
+  }))
+
+  const dispatch = useDispatch()
 
   return (
     <div className="controls panel">
-      <button disabled={!closed} onClick={toggleLocked} className="toggle-btn">
-        {locked ? 'Unlock Gate' : 'Lock Gate'}
+      <button
+        data-testid="lock-button"
+        disabled={!closed}
+        onClick={() => {
+          dispatch(toggleLocked())
+        }}
+        className="toggle-btn"
+      >
+        {locked ? "Unlock Gate" : "Lock Gate"}
       </button>
-      <button disabled={locked} onClick={toggleClosed} className="toggle-btn">
-        {closed ? 'Open Gate' : 'Close Gate'}
+      <button
+        data-testid="open-close-button"
+        disabled={locked}
+        onClick={() => dispatch(toggleClosed())}
+        className="toggle-btn"
+      >
+        {closed ? "Open Gate" : "Close Gate"}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Controls;
+export default Controls
